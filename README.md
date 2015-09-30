@@ -29,6 +29,7 @@ in your browser, to persist input values entered on your device.
 Roadmap and other development ideas:
 
 * XY color
+* better mobile browser support
 * graphical color picker
 * Schedules and Rules
 * calendar/time picker
