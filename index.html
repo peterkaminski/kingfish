@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Kingfish : An open-source single-file HTML/JavaScript Hue controller">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Kingfish</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/peterkaminski/kingfish">View on GitHub</a>
+
+          <h1 id="project_title">Kingfish</h1>
+          <h2 id="project_tagline">An open-source single-file HTML/JavaScript Hue controller</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/peterkaminski/kingfish/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/peterkaminski/kingfish/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a id="kingfish-for-philips-hue-by-peter-kaminski" class="anchor" href="#kingfish-for-philips-hue-by-peter-kaminski" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kingfish for Philips Hue, by Peter Kaminski</h3>
+
+<p>An open-source single-file HTML/JavaScript Hue controller for
+interacting directly with the API. Intended for those who want to get
+a better handle on the low-level interface to their Hue system.</p>
+
+<p>You can load the <code>kingfish.html</code> file from the repo, or load or save the file from the web:
+<a href="http://peterkaminski.github.io/kingfish/kingfish.html">kingfish.html</a>.</p>
+
+<p>Hardware donations gratefully received, contact
+<a href="mailto:kingfish@istori.com">kingfish@istori.com</a>. Consider purchasing <a href="http://www.amazon.com/dp/B00BSN8DN4/?tag=kfsh-20">Hue
+color</a> or <a href="http://www.amazon.com/dp/B00ME9CDQE/?tag=kfsh-20">Hue
+Lux</a> gear via our
+Amazon associate links to help support the Kingfish project.</p>
+
+<p>Commands are sent on your local network directly from your device to
+your Hue bridge, not through any server. (The "Get Bridge IP" command
+retrieves your bridge IP address from a Philips server, but does not
+send any data, nor does the Philips server send any commands.) There
+are no analytics or tracking bugs in this file.</p>
+
+<p>Start by doing boxes in numbered order, then repeat in any order as
+desired. Green buttons set blue values, but don't send commands. Blue
+and red buttons send commands to bridge. You can close and re-open
+Kingfish at any time. Kingfish uses HTML5 local storage, if available
+in your browser, to persist input values entered on your device.</p>
+
+<p>Roadmap and other development ideas:</p>
+
+<ul>
+<li>XY color</li>
+<li>graphical color picker</li>
+<li>Schedules and Rules</li>
+<li>calendar/time picker</li>
+<li>Scenes</li>
+<li>using names of objects from bridge instead of numbers</li>
+<li>more attractive visually (better CSS)</li>
+<li>theming</li>
+<li>namespacing variables</li>
+<li>better code organization</li>
+<li>automatic parsing of responses</li>
+<li>countdown timer for monitoring transition time</li>
+<li>active programmatic control of lighting</li>
+<li>support for other similar systems</li>
+</ul>
+
+<p>Kingfish uses <a href="http://api.jquery.com/jquery.ajax/">jQuery.ajax</a> to
+send commands via HTTP to the bridge. For background on Philips Hue
+terminology and how the Hue API works, read <a href="http://www.developers.meethue.com/philips-hue-api">Philips hue
+API</a>. Visit the
+<a href="http://peterkaminski.github.io/kingfish/">Kingfish project home page</a>
+or the <a href="https://github.com/peterkaminski/kingfish">Kingfish repo</a> to
+comment, fork, or download the project files. Distributed under
+open-source MIT license, see LICENSE.md.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Kingfish maintained by <a href="https://github.com/peterkaminski">peterkaminski</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
