@@ -31,7 +31,7 @@ Roadmap and other development ideas:
 * XY color
 * better mobile browser support
 * graphical color picker
-* Schedules and Rules
+* Schedules and Rules, including sunrise/sunset+offset rules
 * calendar/time picker
 * Scenes
 * using names of objects from bridge instead of numbers
