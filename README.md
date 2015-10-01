@@ -34,6 +34,7 @@ Roadmap and other development ideas:
 * Schedules and Rules, including sunrise/sunset+offset rules
 * calendar/time picker
 * Scenes
+* Sensors
 * using names of objects from bridge instead of numbers
 * more attractive visually (better CSS)
 * theming
@@ -42,6 +43,8 @@ Roadmap and other development ideas:
 * automatic parsing of responses
 * countdown timer for monitoring transition time
 * active programmatic control of lighting
+* expand/close boxes
+* drag-drop to rearrange boxes
 * support for other similar systems
 
 Kingfish uses [jQuery.ajax](http://api.jquery.com/jquery.ajax/) to
