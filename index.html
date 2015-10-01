@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Kingfish for Philips Hue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.22.0/css/uikit.almost-flat.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <style>
+  body {
+    margin: 1em;
+  }
+
+  footer,
+  header {
+    position: relative;
+    clear: both;
+  }
+
+  @media screen and (min-width: 40em) {
+    .columns-container {
+      float: left;
+    }
+    .left-column {
+      width: 29em;
+      margin-right: -30em;
+      float: left;
+    }
+    .right-column {
+      margin-left: 30em;
+      float: left;
+    }
+  }
+
+  div.centered {
+    text-align: center;
+  }
+
+  div {
+    margin: .2em;
+  }
+
+  div.box {
+    border: solid 1px #CCCCFF;
+    border-radius: 4px;
+    background-color: ghostwhite;
+    padding: .4em;
+    margin: .4em;
+  }
+
+  span.noun {
+    font-weight: bold;
+  }
+
+  input,
+  select {
+    background: #f8f8ff;
+  }
+  .uk-button{
+    margin-bottom:.5em;
+  }
+
+  button,
+  .quick-set {
+    background: #e8ffe8;
+  }
+
+  .send-button {
+    background: #e8e8ff;
+  }
+
+  .on-button {
+    background: #a8a8ff;
+  }
+
+  .off-button {
+    background: #ffaaaa;
+  }
+
+  div.verbiage {
+    max-width: 45em;
+  }
+
+  div.fineprint {
+    font-style: italic;
+    font-size: 80%;
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="centered">
+      <strong>Kingfish for Philips Hue,</strong> version 1.0.0, by Peter Kaminski
+      <br/>An open-source single-file HTML/JavaScript Hue controller for interacting directly with the API. Quick start instructions at bottom of page.
+    </div>
+  </header>
+  <div class="columns-container">
+    <div class="left-column">
+      <div class="box">
+        <div class="box-header">2. Select <span class="noun">Group</span> or <span class="noun">Light</span></div>
+        <div>
+          <form action="" class="uk-form">
+          <select class="persistent" id="lg">
+            <option value="groups">Group</option>
+            <option value="lights">Light</option>
+          </select>
+          <select class="persistent" id="sel">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="">4</option>
+            <option value="">5</option>
+            <option value="">6</option>
+            <option value="">7</option>
+            <option value="">8</option>
+            <option value="">9</option>
+          </select>
+        </form>
+        </div>
+        <div>
+          <i>quick set:</i>
+          <button class="uk-button uk-button-small lg-set">All Lights</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header">2. Select <span class="noun">Transition Time</span></div>
+        <div>
+          <form action="" class="uk-form">
+            <input class="persistent" id="tt-val" type="text" size="3" value="5" />
+            <select class="persistent" id="tt-sel">
+              <option value="10">seconds</option>
+              <option value="600">minutes</option>
+            </select>
+          </form>
+        </div>
+        <div>
+          <i>quick set:</i>
+          <button class="uk-button uk-button-small tt-set">0</button>
+          <button class="uk-button uk-button-small tt-set">1</button>
+          <button class="uk-button uk-button-small tt-set">2</button>
+          <button class="uk-button uk-button-small tt-set">5</button>
+          <button class="uk-button uk-button-small tt-set">10</button>
+          <button class="uk-button uk-button-small tt-set">20</button>
+          <button class="uk-button uk-button-small tt-set">30</button>
+          <button class="uk-button uk-button-small tt-set">60</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header">3. Send <span class="noun">Brightness (0-254) + On</span></div>
+        <div>
+          <form action="" class="uk-form">
+            <input class="persistent" id="on-bri" type="text" size="3" value="127" />
+            <button class="uk-button uk-button-small send-button, on-button" id="on">On</button>
+          </form>
+        </div>
+        <div>
+          <i>quick set:</i>
+          <button class="uk-button uk-button-small bri-set">0</button>
+          <button class="uk-button uk-button-small bri-set">36</button>
+          <button class="uk-button uk-button-small bri-set">73</button>
+          <button class="uk-button uk-button-small bri-set">109</button>
+          <button class="uk-button uk-button-small bri-set">145</button>
+          <button class="uk-button uk-button-small bri-set">181</button>
+          <button class="uk-button uk-button-small bri-set">218</button>
+          <button class="uk-button uk-button-small bri-set">254</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header">3. Send <span class="noun">Hue (0-65535) + Saturation (0-254)</span></div>
+        <div>
+          Hue
+          <form action="" class="uk-form">
+            <input class="persistent" id="huesat-hue" type="text" size="5" value="32767" /> + Sat
+            <input class="persistent" id="huesat-sat" type="text" size="3" value="127" />
+            <button class="uk-button uk-button-small send-button" id="huesat">Hue+Sat</button>
+          </form>
+        </div>
+        <div>
+          <i>quick set:</i>
+          <form action="" class="uk-form">
+            <select class="persistent, quick-set" id="huesat-set">
+              <option value="0">0 - red</option>
+              <option value="1">1</option>
+              <option value="2">2 - orange</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 - yellow</option>
+              <option value="6">6</option>
+              <option value="7">7 - green</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11 - blue</option>
+              <option value="12">12</option>
+              <option value="13">13 - violet</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+            </select>
+            <button class="uk-button uk-button-small sat-set">0</button>
+            <button class="uk-button uk-button-small sat-set">36</button>
+            <button class="uk-button uk-button-small sat-set">73</button>
+            <button class="uk-button uk-button-small sat-set">109</button>
+            <button class="uk-button uk-button-small sat-set">145</button>
+            <button class="uk-button uk-button-small sat-set">181</button>
+            <button class="uk-button uk-button-small sat-set">218</button>
+            <button class="uk-button uk-button-small sat-set">254</button>
+          </form>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header">3. Send <span class="noun">Color Temp K (2000-6500)</span></div>
+        <div>
+          <form action="" class="uk-form">
+            <input class="persistent" id="ct-kelvin" type="text" size="4" value="2700" />
+            <button class="uk-button uk-button-small send-button" id="ct">Color Temp</button>
+          </form>
+        </div>
+        <div>
+          <i>quick set:</i>
+          <form action="" class="uk-form">
+            <button class="uk-button uk-button-small ct-set">2000</button>
+            <button class="uk-button uk-button-small ct-set">2700</button>
+            <button class="uk-button uk-button-small ct-set">3000</button>
+            <button class="uk-button uk-button-small ct-set">3500</button>
+            <button class="uk-button uk-button-small ct-set">4000</button>
+            <button class="uk-button uk-button-small ct-set">5000</button>
+            <button class="uk-button uk-button-small ct-set">5700</button>
+            <button class="uk-button uk-button-small ct-set">6500</button>
+          </form>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header">3. Execute <span class="noun">Effect</span></div>
+        <div>
+          <button class="uk-button uk-button-small send-button" id="blink1">Blink 1</button>
+          <button class="uk-button uk-button-small send-button" id="blink15">Blink 15</button>
+          <button class="uk-button uk-button-small send-button" id="colorloop">Color Loop</button>
+          <button class="uk-button uk-button-small send-button" id="effect-none">None</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header">3. Send <span class="noun">Off</span></div>
+        <div>
+          <button class="uk-button uk-button-small send-button, off-button" id="off">Off</button>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header">Get <span class="noun">Status</span></div>
+        <div>
+          <form action="" class="uk-form">
+            <select class="persistent" id="get-sel">
+              <option value="lights">Lights</option>
+              <option value="groups">Groups</option>
+              <option value="schedules">Schedules</option>
+              <option value="scenes">Scenes</option>
+              <option value="sensors">Sensors</option>
+              <option value="rules">Rules</option>
+              <option value="config">Config</option>
+              <option value="info/timezones">Timezones</option>
+              <option value="">Everything</option>
+            </select>
+            <button class="uk-button uk-button-small send-button" id="get">Get</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="right-column">
+      <div class="box">
+        <div class="box-header">1. Retrieve or specify <span class="noun">Bridge IP Address</span> and <span class="noun">Username</span></div>
+        <div>
+          <button class="uk-button uk-button-small send-button" id="query-portal">Get Bridge IP</button>
+        </div>
+        <div>
+          <form action="" class="uk-form">
+            <button class="uk-button uk-button-small send-button" id="get-username">Get Username</button> for
+            <input class="persistent" id="devicetype" type="text" size="40" />
+          </form>
+        </div>
+        <div>
+          IP Address
+          <form action="" class="uk-form">
+            <input class="persistent" id="bridge-ip" type="text" size="40" />
+          </form>
+        </div>
+        <div>
+          Username
+          <form action="" class="uk-form">
+            <input class="persistent" id="username" type="text" size="40" />
+          </form>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-header"><span class="noun">Response</span></div>
+        <div id="response"><pre>[]</pre></div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="instructions">
+      <p>Hardware donations gratefully received, contact <a target="_blank" href="mailto:kingfish@istori.com">kingfish@istori.com</a>. Consider purchasing <a target="_blank" href="http://www.amazon.com/dp/B00BSN8DN4/?tag=kfsh-20">Hue color</a> or <a target="_blank" href="http://www.amazon.com/dp/B00ME9CDQE/?tag=kfsh-20">Hue Lux</a> gear via our Amazon associate links to help support the Kingfish project.</p>
+      <p>You can use this page as is, or save it to and reload it from your device, or load or save <a href="http://peterkaminski.github.io/kingfish/kingfish.html">kingfish.html</a> from the web.</p>
+      <p>Commands are sent on your local network directly from your device to your Hue bridge, not through any server. (The &quot;Get Bridge IP&quot; command retrieves your bridge IP address from a Philips server, but does not send any data, nor does the Philips server send any commands.) There are no analytics or tracking bugs in this file.</p>
+      <p>Start by doing boxes in numbered order, then repeat in any order as desired. <span class="quick-set">Green</span> buttons set <span class="send-button">blue</span> values, but don't send commands. <span class="send-button">Blue</span> and <span class="off-button">red</span> buttons send commands to bridge. You can close and re-open Kingfish at any time. Kingfish uses HTML5 local storage, if available in your browser, to save and reload input values entered on your device, as long as you load it from the same location.</p>
+      <p>Kingfish uses <a target="_blank" href="http://api.jquery.com/jquery.ajax/">jQuery.ajax()</a> to send commands via HTTP to the bridge. For background on Philips Hue terminology and how the Hue API works, read <a target="_blank" href="http://www.developers.meethue.com/philips-hue-api">Philips hue API</a>. Visit the <a target="_blank" href="http://peterkaminski.github.io/kingfish/">Kingfish project home page</a> or the <a target="_blank" href="https://github.com/peterkaminski/kingfish">Kingfish repo</a> to comment, fork, or download the project files. Distributed under open-source MIT license, see below.</p>
+    </div>
+    <div class="fineprint">
+      <p>Kingfish for Philips Hue
+        <br/>Copyright 2015 Peter Kaminski</p>
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+        <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+        <p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </div>
+    </footer>
+    <script>
+    $(function () {
+      // load all .persistent elements
+      $(".persistent").each(function (i, d) {
+        try {
+          var val = localStorage.getItem("kingfish." + $(this).attr('id'));
+          if (val) {
+            $(this).val(val);
+          }
+        } catch (e) {}
+      });
+
+      // initialize devicetype if it's empty
+      if ("" === $("#devicetype").val()) {
+        $("#devicetype").val("Kingfish#" + Math.floor(Math.random() * 8999 + 1000).toString());
+        $("#devicetype").change();
+      }
+    });
+
+    // save .persistent element when it changes
+    $(".persistent").on("change keyup", function () {
+      try {
+        localStorage.setItem("kingfish." + $(this).attr('id'), $(this).val());
+      } catch (e) {}
+    });
+
+    var displayResponse = function (command, response) {
+      if (!command && response.length) {
+        if (response[0].error && response[0].error.description === 'link button not pressed') {
+          alert("Press link button on bridge and try again.");
+        } else {
+          try {
+            $("#username").val(response[0].success.username);
+            $("#username").change();
+          } catch (e) {
+            alert(e)
+          }
+        }
+      }
+      $("#response").html('<pre>' + JSON.stringify(response, undefined, 4) + '</pre>');
+    };
+
+    var portalResponse = function (response) {
+      if (response.length) {
+        try {
+          $("#bridge-ip").val(response[0].internalipaddress);
+          $("#bridge-ip").change();
+        } catch (e) {
+          alert(e)
+        }
+      }
+      $("#response").html('<pre>' + JSON.stringify(response, undefined, 4) + '</pre>');
+    };
+
+    var queryPortal = function () {
+      try {
+        $.ajax({
+          url: "https://www.meethue.com/api/nupnp",
+          type: "GET",
+          dataType: "json",
+          success: function (response) {
+            portalResponse(response)
+          },
+          error: function (jqhxr, textStatus, errorThrown) {
+            alert(textStatus + " sending to bridge - confirm IP address is correct");
+          }
+        });
+      } catch (e) {
+        alert(e);
+      }
+    };
+
+    var doHue = function (type, command, dataObj) {
+      try {
+        $.ajax({
+          url: "http://" + $("#bridge-ip").val() + "/api" + (command ? ("/" + $("#username").val() + "/" + command) : ''),
+          type: type,
+          data: JSON.stringify(dataObj),
+          dataType: "json",
+          contentType: 'application/json; charset=utf-8',
+          success: function (response) {
+            displayResponse(command, response);
+          },
+          error: function (jqhxr, textStatus, errorThrown) {
+            alert(textStatus + " sending to bridge - confirm IP address is correct");
+          }
+        });
+      } catch (e) {
+        alert(e);
+      }
+    };
+
+    var stateAction = function () {
+      return ($("#lg").val() + "/" + $("#sel").val() + (($("#lg").val() === 'lights') ? "/state" : "/action"));
+    };
+
+    var transitionTime = function () {
+      return ($("#tt-sel").val() * $("#tt-val").val());
+    };
+
+    $("#huesat-set").change(function () {
+      $("#huesat-hue").val(Math.round(65535 * $("#huesat-set").val() / 16));
+    });
+
+    $(".lg-set").mousedown(function () {
+      $("#lg").val("groups");
+      $("#lg").change();
+      $("#sel").val("0");
+      $("#sel").change();
+    });
+
+    $(".ct-set").mousedown(function () {
+      $("#ct-kelvin").val($(this).html());
+      $("#ct-kelvin").change();
+    });
+
+    $(".tt-set").mousedown(function () {
+      $("#tt-val").val($(this).html());
+      $("#tt-val").change();
+    });
+
+    $(".bri-set").mousedown(function () {
+      $("#on-bri").val($(this).html());
+      $("#on-bri").change();
+    });
+
+    $(".sat-set").mousedown(function () {
+      $("#huesat-sat").val($(this).html());
+      $("#huesat-sat").change();
+    });
+
+    $("#query-portal").click(function () {
+      queryPortal();
+    });
+
+    $("#get-username").click(function () {
+      doHue("POST", null, {
+        "devicetype": $("#devicetype").val()
+      });
+    });
+
+    $("#get").click(function () {
+      doHue("GET", $("#get-sel").val());
+    });
+
+    $("#colorloop").click(function () {
+      doHue("PUT", stateAction(), {
+        "effect": "colorloop"
+      });
+    });
+
+    $("#effect-none").click(function () {
+      doHue("PUT", stateAction(), {
+        "effect": "none"
+      });
+    });
+
+    $("#blink1").click(function () {
+      doHue("PUT", stateAction(), {
+        "alert": "select"
+      });
+    });
+
+    $("#blink15").click(function () {
+      doHue("PUT", stateAction(), {
+        "alert": "lselect"
+      });
+    });
+
+    $("#off").click(function () {
+      doHue("PUT", stateAction(), {
+        "on": false,
+        "transitiontime": transitionTime()
+      });
+    });
+
+    $("#on").click(function () {
+      var bri = parseInt($("#on-bri").val());
+      bri = isNaN(bri) ? 127 : bri;
+      $("#on-bri").val(bri.toString());
+      $("#on-bri").change();
+      doHue("PUT", stateAction(), {
+        "on": true,
+        "bri": bri,
+        "transitiontime": transitionTime()
+      });
+    });
+
+    $("#huesat").click(function () {
+      var hue = parseInt($("#huesat-hue").val());
+      hue = isNaN(hue) ? 32767 : hue;
+      $("#huesat-hue").val(hue.toString());
+      var sat = parseInt($("#huesat-sat").val());
+      sat = isNaN(sat) ? 127 : sat;
+      $("#huesat-sat").val(sat.toString());
+      $("#huesat-sat").change();
+      doHue("PUT", stateAction(), {
+        "hue": hue,
+        "sat": sat,
+        "transitiontime": transitionTime()
+      });
+    });
+
+    $("#ct").click(function () {
+      var kelvin = parseInt($("#ct-kelvin").val());
+      kelvin = isNaN(kelvin) ? 2700 : kelvin;
+      $("#ct-kelvin").val(kelvin.toString());
+      $("#ct-kelvin").change();
+      doHue("PUT", stateAction(), {
+        "ct": Math.round(1000000 / kelvin),
+        "transitiontime": transitionTime()
+      });
+    });
+    </script>
+  </body>
+
+  </html>
