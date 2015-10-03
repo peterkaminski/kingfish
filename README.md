@@ -43,6 +43,9 @@ Roadmap and other development ideas:
 * automatic parsing of responses
 * countdown timer for monitoring transition time
 * active programmatic control of lighting
+  * bookmark colors, optionally name
+  * randomly adjust colors (random walk, abrupt)
+  * "bounce" light gently from lamp to lamp
 * expand/close boxes
 * drag-drop to rearrange boxes
 * support for other similar systems
