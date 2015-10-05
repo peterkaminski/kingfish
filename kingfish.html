@@ -96,11 +96,13 @@
             <div class="box">
                 <div class="box-header">2. Select <span class="noun">Group</span> or <span class="noun">Light</span></div>
                 <div>
-                    <select class="persistent" id="lg">
-                        <option value="groups">Group</option>
-                        <option value="lights">Light</option>
-                    </select>
-                    <select class="persistent" id="sel">
+                    <span id="lg">
+                        <input class="persistent" type="radio" id="lg-group" name="lg" value="groups" checked>
+                        <label for="lg-group">Group</label>
+                        <input class="persistent" type="radio" id="lg-light" name="lg" value="lights">
+                        <label for="lg-light">Light</label>
+                    </span>
+                    <select class="persistent" id="lg-sel">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -500,9 +502,11 @@
                 $("#devicetype").change();
             }
 
+            // set up light-group buttonset
+            $("#lg").buttonset();
+
 	    // initialize schedule toggle checkboxes
 	    $(".sched-day").button();
-
         });
 
         // save .persistent element when it changes
@@ -579,7 +583,7 @@
         };
 
         var stateAction = function () {
-            return ($("#lg").val() + "/" + $("#sel").val() + (($("#lg").val() === 'lights') ? "/state" : "/action"));
+            return ($("input[name=lg]:checked").val() + "/" + $("#sel").val() + (($("input[name=lg]:checked").val() === 'lights') ? "/state" : "/action"));
         };
 
         var transitionTime = function () {
@@ -591,10 +595,11 @@
         });
 
         $(".lg-set").mousedown(function () {
-            $("#lg").val("groups");
-            $("#lg").change();
-            $("#sel").val("0");
-            $("#sel").change();
+            $("#lg-group").prop("checked", true);
+            $("#lg-group").change();
+            $("#lg-light").change();
+            $("#lg-sel").val("0");
+            $("#lg-sel").change();
         });
 
         $(".ct-set").mousedown(function () {
