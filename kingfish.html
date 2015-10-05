@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <title>Kingfish for Philips Hue</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <style>
         body {
             margin: 1em;
@@ -94,10 +96,12 @@
             <div class="box">
                 <div class="box-header">2. Select <span class="noun">Group</span> or <span class="noun">Light</span></div>
                 <div>
-                    <select class="persistent" id="lg">
-                        <option value="groups">Group</option>
-                        <option value="lights">Light</option>
-                    </select>
+                    <span id="lg">
+                        <input class="persistent" type="radio" id="lg-group" name="lg" value="groups" checked>
+                        <label for="lg-group">Group</label>
+                        <input class="persistent" type="radio" id="lg-light" name="lg" value="lights">
+                        <label for="lg-light">Light</label>
+                    </span>
                     <select class="persistent" id="sel">
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -302,6 +306,9 @@
                 $("#devicetype").val("Kingfish#" + Math.floor(Math.random() * 8999 + 1000).toString());
                 $("#devicetype").change();
             }
+
+            // set up light-group buttonset
+            $("#lg").buttonset();
         });
 
         // save .persistent element when it changes
@@ -378,7 +385,7 @@
         };
 
         var stateAction = function () {
-            return ($("#lg").val() + "/" + $("#sel").val() + (($("#lg").val() === 'lights') ? "/state" : "/action"));
+            return ($("input[name=lg]:checked").val() + "/" + $("#sel").val() + (($("input[name=lg]:checked").val() === 'lights') ? "/state" : "/action"));
         };
 
         var transitionTime = function () {
