@@ -102,7 +102,7 @@
                         <input class="persistent" type="radio" id="lg-light" name="lg" value="lights">
                         <label for="lg-light">Light</label>
                     </span>
-                    <select class="persistent" id="sel">
+                    <select class="persistent" id="lg-sel">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -397,10 +397,11 @@
         });
 
         $(".lg-set").mousedown(function () {
-            $("#lg").val("groups");
-            $("#lg").change();
-            $("#sel").val("0");
-            $("#sel").change();
+            $("#lg-group").prop("checked", true);
+            $("#lg-group").change();
+            $("#lg-light").change();
+            $("#lg-sel").val("0");
+            $("#lg-sel").change();
         });
 
         $(".ct-set").mousedown(function () {
