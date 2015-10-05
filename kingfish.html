@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <title>Kingfish for Philips Hue</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <style>
         body {
             margin: 1em;
@@ -103,12 +105,12 @@
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
-                        <option value="">4</option>
-                        <option value="">5</option>
-                        <option value="">6</option>
-                        <option value="">7</option>
-                        <option value="">8</option>
-                        <option value="">9</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
                     </select>
                 </div>
                 <div>
@@ -138,7 +140,133 @@
                 </div>
             </div>
             <div class="box">
-                <div class="box-header">3. Send <span class="noun">Brightness (0-254) + On</span></div>
+                <div class="box-header">3a. Set <span class="noun">Schedule</span></div>
+		<div>
+		  <select class="persistent" id="sched-hour">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+		  </select> :
+		  <select class="persistent" id="sched-min-10">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+		  </select>
+		  <select class="persistent" id="sched-min-1">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+
+		  </select>
+		</div>
+                <div>
+		  <input type="checkbox" class="sched-day" id="sched-sun"><label for="sched-sun">Sun</label>
+		  <input type="checkbox" class="sched-day" id="sched-mon"><label for="sched-mon">Mon</label>
+		  <input type="checkbox" class="sched-day" id="sched-tue"><label for="sched-tue">Tue</label>
+		  <input type="checkbox" class="sched-day" id="sched-wed"><label for="sched-wed">Wed</label>
+		  <input type="checkbox" class="sched-day" id="sched-thu"><label for="sched-thu">Thu</label>
+		  <input type="checkbox" class="sched-day" id="sched-fri"><label for="sched-fri">Fri</label>
+		  <input type="checkbox" class="sched-day" id="sched-sat"><label for="sched-sat">Sat</label>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header">3b. Set <span class="noun">Alarm</span></div>
+                <div>
+		  <select class="persistent" id="alarmhour">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+		  </select> :
+		  <select class="persistent" id="alarmmin-10">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+		  </select>
+		  <select class="persistent" id="alarmmin-1">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+
+		  </select>
+		</div>
+            </div>
+            <div class="box">
+                <div class="box-header">3c. Set <span class="noun">Timer</span></div>
+                <div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header">4. Send <span class="noun">Brightness (0-254) + On</span></div>
                 <div>
                     <input class="persistent" id="on-bri" type="text" size="3" value="127" />
                     <button class="send-button, on-button" id="on">On</button>
@@ -156,7 +284,7 @@
                 </div>
             </div>
             <div class="box">
-                <div class="box-header">3. Send <span class="noun">Hue (0-65535) + Saturation (0-254)</span></div>
+                <div class="box-header">4. Send <span class="noun">Hue (0-65535) + Saturation (0-254)</span></div>
                 <div>
                     Hue
                     <input class="persistent" id="huesat-hue" type="text" size="5" value="32767" /> + Sat
@@ -194,7 +322,7 @@
                 </div>
             </div>
             <div class="box">
-                <div class="box-header">3. Send <span class="noun">Color Temp K (2000-6500)</span></div>
+                <div class="box-header">4. Send <span class="noun">Color Temp K (2000-6500)</span></div>
                 <div>
                     <input class="persistent" id="ct-kelvin" type="text" size="4" value="2700" />
                     <button class="send-button" id="ct">Color Temp</button>
@@ -212,7 +340,7 @@
                 </div>
             </div>
             <div class="box">
-                <div class="box-header">3. Execute <span class="noun">Effect</span></div>
+                <div class="box-header">4. Execute <span class="noun">Effect</span></div>
                 <div>
                     <button class="send-button" id="blink1">Blink 1</button>
                     <button class="send-button" id="blink15">Blink 15</button>
@@ -221,9 +349,14 @@
                 </div>
             </div>
             <div class="box">
-                <div class="box-header">3. Send <span class="noun">Off</span></div>
+                <div class="box-header">4. Send <span class="noun">Off</span></div>
                 <div>
                     <button class="send-button, off-button" id="off">Off</button>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header">5. Delete <span class="noun">Schedule/Alarm/Timer</span></div>
+                <div>
                 </div>
             </div>
             <div class="box">
@@ -302,6 +435,10 @@
                 $("#devicetype").val("Kingfish#" + Math.floor(Math.random() * 8999 + 1000).toString());
                 $("#devicetype").change();
             }
+
+	    // initialize schedule toggle checkboxes
+	    $(".sched-day").button();
+
         });
 
         // save .persistent element when it changes
