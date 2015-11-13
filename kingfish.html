@@ -225,6 +225,13 @@
                 </div>
             </div>
             <div class="box">
+                <div class="box-header">3. Play with  <span class="noun">Toys</span></div>
+                <div>
+                    <button class="send-button" id="drift-on">Drift On</button>
+                    <button class="send-button" id="drift-off">Drift Off</button>
+                </div>
+            </div>
+            <div class="box">
                 <div class="box-header">3. Send <span class="noun">Off</span></div>
                 <div>
                     <button class="send-button, off-button" id="off">Off</button>
@@ -384,8 +391,18 @@
             }
         };
 
+        var doDrift = function () {
+            doHue("PUT", stateAction(), {
+                "hue": Math.floor(Math.random()*65536),
+                "sat": Math.floor(Math.random()*256),
+                "transitiontime": transitionTime()
+            });
+            console.log("sent drift ", Math.round(Date.now()/1000));
+        };
+
         var stateAction = function () {
-            return ($("input[name=lg]:checked").val() + "/" + $("#sel").val() + (($("input[name=lg]:checked").val() === 'lights') ? "/state" : "/action"));
+            var lg = $("input[name=lg]:checked").val().replace(/\s*checked\s*/, '');
+            return (lg + "/" + $("#lg-sel").val() + ((lg === 'lights') ? "/state" : "/action"));
         };
 
         var transitionTime = function () {
@@ -460,6 +477,19 @@
             doHue("PUT", stateAction(), {
                 "alert": "lselect"
             });
+        });
+
+        var driftHandle;
+        $("#drift-on").click(function () {
+            try {
+                clearInterval(driftHandle);
+            } catch (e) {}
+            driftHandle = setInterval(doDrift, transitionTime()*100);
+        });
+        $("#drift-off").click(function () {
+            try {
+                clearInterval(driftHandle);
+            } catch (e) {}
         });
 
         $("#off").click(function () {
