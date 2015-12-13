@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Kingfish for Philips Hue</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-darkness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <style>
         body {
@@ -79,6 +79,10 @@
         
         div.fineprint {
             font-style: italic;
+            font-size: 80%;
+        }
+        
+        .ui-widget {
             font-size: 80%;
         }
     </style>
@@ -225,8 +229,14 @@
                 </div>
             </div>
             <div class="box">
-                <div class="box-header">3. Play with  <span class="noun">Toys</span></div>
+                <div class="box-header">3. Play with <span class="noun">Toys</span></div>
                 <div>
+                    Drift Interval:
+                    <input class="persistent" id="di-val" type="text" size="3" value="5" />
+                    <select class="persistent" id="di-sel">
+                        <option value="10">seconds</option>
+                        <option value="600">minutes</option>
+                    </select>
                     <button class="send-button" id="drift-on">Drift On</button>
                     <button class="send-button" id="drift-off">Drift Off</button>
                 </div>
@@ -286,6 +296,7 @@
             <p>You can use this page as is, or save it to and reload it from your device, or load or save <a href="http://peterkaminski.github.io/kingfish/kingfish.html">kingfish.html</a> from the web.</p>
             <p>Commands are sent on your local network directly from your device to your Hue bridge, not through any server. (The &quot;Get Bridge IP&quot; command retrieves your bridge IP address from a Philips server, but does not send any data, nor does the Philips server send any commands.) There are no analytics or tracking bugs in this file.</p>
             <p>Start by doing boxes in numbered order, then repeat in any order as desired. <span class="quick-set">Green</span> buttons set <span class="send-button">blue</span> values, but don't send commands. <span class="send-button">Blue</span> and <span class="off-button">red</span> buttons send commands to bridge. You can close and re-open Kingfish at any time. Kingfish uses HTML5 local storage, if available in your browser, to save and reload input values entered on your device, as long as you load it from the same location.</p>
+            <p>&quot;Drift&quot; toy sends a random hue and saturation at the specified interval. Also sends the &quot;Transition Time&quot; interval to the bridge.</p>
             <p>Kingfish uses <a target="_blank" href="http://api.jquery.com/jquery.ajax/">jQuery.ajax()</a> to send commands via HTTP to the bridge. For background on Philips Hue terminology and how the Hue API works, read <a target="_blank" href="http://www.developers.meethue.com/philips-hue-api">Philips hue API</a>. Visit the <a target="_blank" href="http://peterkaminski.github.io/kingfish/">Kingfish project home page</a> or the <a target="_blank" href="https://github.com/peterkaminski/kingfish">Kingfish repo</a> to comment, fork, or download the project files. Distributed under open-source MIT license, see below.</p>
         </div>
         <div class="fineprint">
@@ -329,7 +340,7 @@
             if (!command && response.length) {
                 if (response[0].error && response[0].error.description === 'link button not pressed') {
                     alert("Press link button on bridge and try again.");
-                } else {
+                } else if (response[0].success) {
                     try {
                         $("#username").val(response[0].success.username);
                         $("#username").change();
@@ -374,7 +385,7 @@
         var doHue = function (type, command, dataObj) {
             try {
                 $.ajax({
-                    url: "http://" + $("#bridge-ip").val() + "/api" + (command ? ("/" + $("#username").val() + "/" + command) : ''),
+                    url: "http://" + $("#bridge-ip").val() + "/api/" + $("#username").val() + (command ? ("/" + command) : ""),
                     type: type,
                     data: JSON.stringify(dataObj),
                     dataType: "json",
@@ -393,11 +404,11 @@
 
         var doDrift = function () {
             doHue("PUT", stateAction(), {
-                "hue": Math.floor(Math.random()*65536),
-                "sat": Math.floor(Math.random()*256),
+                "hue": Math.floor(Math.random() * 65536),
+                "sat": Math.floor(Math.random() * 256),
                 "transitiontime": transitionTime()
             });
-            console.log("sent drift ", Math.round(Date.now()/1000));
+            console.log("sent drift ", Math.round(Date.now() / 1000));
         };
 
         var stateAction = function () {
@@ -484,7 +495,7 @@
             try {
                 clearInterval(driftHandle);
             } catch (e) {}
-            driftHandle = setInterval(doDrift, transitionTime()*100);
+            driftHandle = setInterval(doDrift, $("#di-sel").val() * $("#di-val").val() * 100);
         });
         $("#drift-off").click(function () {
             try {
