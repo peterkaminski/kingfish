@@ -8,12 +8,6 @@ You can load the `kingfish.html` file from this directory in your
 browser, or load or save the file from the web:
 [kingfish.html](http://peterkaminski.github.io/kingfish/kingfish.html).
 
-Hardware donations gratefully received, contact
-<kingfish@istori.com>. Consider purchasing [Hue
-color](http://www.amazon.com/dp/B00BSN8DN4/?tag=kfsh-20) or [Hue
-Lux](http://www.amazon.com/dp/B00ME9CDQE/?tag=kfsh-20) gear via our
-Amazon associate links to help support the Kingfish project.
-
 Commands are sent on your local network directly from your device to
 your Hue bridge, not through any server. (The "Get Bridge IP" command
 retrieves your bridge IP address from a Philips server, but does not
@@ -33,7 +27,6 @@ Roadmap and other development ideas:
 * graphical color picker
 * Schedules and Rules, including sunrise/sunset+offset rules
 * calendar/time picker
-* Scenes
 * Sensors
 * using names of objects from bridge instead of numbers
 * more attractive visually (better CSS)
@@ -53,7 +46,7 @@ Roadmap and other development ideas:
 Kingfish uses [jQuery.ajax](http://api.jquery.com/jquery.ajax/) to
 send commands via HTTP to the bridge. For background on Philips Hue
 terminology and how the Hue API works, read [Philips hue
-API](http://www.developers.meethue.com/philips-hue-api). Visit the
+API](https://developers.meethue.com/develop/hue-api/). Visit the
 [Kingfish project home page](http://peterkaminski.github.io/kingfish/)
 or the [Kingfish repo](https://github.com/peterkaminski/kingfish) to
 comment, fork, or download the project files. Distributed under
