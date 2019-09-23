@@ -91,7 +91,7 @@
 <body>
     <header>
         <div class="centered">
-            <strong>Kingfish for Philips Hue,</strong> version 1.1.0, by Peter Kaminski
+            <strong>Kingfish for Philips Hue,</strong> version 1.2.0, by Peter Kaminski
             <br/>An open-source single-file HTML/JavaScript Hue controller for interacting directly with the API. Quick start instructions at bottom of page.
         </div>
     </header>
@@ -307,6 +307,13 @@
                     <button class="ct-set">5000</button>
                     <button class="ct-set">5700</button>
                     <button class="ct-set">6500</button>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-header">3. Recall <span class="noun">Scene</span></div>
+                <div>
+                    <input class="persistent" id="sc-id" type="text" size="15" />
+                    <button class="send-button" id="sc">Scene</button>
                 </div>
             </div>
             <div class="box">
@@ -636,7 +643,15 @@
                 "transitiontime": transitionTime()
             });
         });
-    </script>
+
+        $("#sc").click(function () {
+            $("#sc-id").change();
+            doHue("PUT", stateAction(), {
+                "scene": $("#sc-id").val()
+            });
+        });
+
+</script>
 </body>
 
 </html>
