@@ -85,13 +85,17 @@
         .ui-widget {
             font-size: 80%;
         }
+
+        #api-tool {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <header>
         <div class="centered">
-            <strong>Kingfish for Philips Hue,</strong> version 1.2.0, by Peter Kaminski
+            <strong>Kingfish for Philips Hue,</strong> version 1.2.1, by Peter Kaminski
             <br/>An open-source single-file HTML/JavaScript Hue controller for interacting directly with the API. Quick start instructions at bottom of page.
         </div>
     </header>
@@ -375,6 +379,7 @@
                 <div>
                     IP Address
                     <input class="persistent" id="bridge-ip" type="text" size="40" />
+                    <span id="api-tool"><a id="api-tool-link" target="kingfish-api-tool" href="">API tool</a></span>
                 </div>
                 <div>
                     Username
@@ -516,6 +521,20 @@
             return ($("#tt-sel").val() * $("#tt-val").val());
         };
 
+        var updateApiToolLink = function () {
+            if (/^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$/.test($("#bridge-ip").val())) {
+                $('#api-tool-link').attr("href", "http://" + $("#bridge-ip").val() + "/debug/clip.html")
+                $('#api-tool').show();
+            }else{
+                $('#api-tool-link').attr("href", "")
+                $('#api-tool').hide();
+            }
+        }
+
+        $("#bridge-ip").change(function () {
+            updateApiToolLink();
+        });
+
         $("#huesat-set").change(function () {
             $("#huesat-hue").val(Math.round(65535 * $("#huesat-set").val() / 16));
         });
@@ -649,6 +668,11 @@
             doHue("PUT", stateAction(), {
                 "scene": $("#sc-id").val()
             });
+        });
+
+        // .ready()
+        $(function() {
+            updateApiToolLink();
         });
 
 </script>
