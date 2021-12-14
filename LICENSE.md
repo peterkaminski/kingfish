@@ -1,6 +1,6 @@
 Kingfish for Philips Hue
 
-Copyright 2015-2020 Peter Kaminski
+Copyright 2015-2021 Peter Kaminski
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
